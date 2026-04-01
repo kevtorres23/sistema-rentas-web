@@ -1,0 +1,327 @@
+.status-dot {
+  flex-shrink: 0;           /* Prevent stretching or shrinking */
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: gray;   /* default, overridden by status classes */
+  margin-right: 8px;
+  align-self: center;       /* Vertically centers inside flex rows */
+}
+  .status-disponible { background-color: #28a745; }
+  .status-ocupado { background-color: #dc3545; }
+  .status-archivado { background-color: #6c757d; }
+
+  .property-card {
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem 0;
+    align-items: center;
+  }
+
+  /* Responsive card styles */
+  @media (max-width: 991px) {
+    .responsive-card {
+      background: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .mobile-label {
+      width: 110px;
+      flex-shrink: 0;
+      color: #6c757d;
+    }
+    .property-card {
+      border-bottom: none !important;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .border-end-lg {
+      border-right: 1px solid #dee2e6;
+    }
+  }
+
+  /* Search box */
+.search-pill {
+  background: #ffffff;
+  border: 1px solid #dcdfe6;
+  border-radius: 18px; 
+  padding: 6px 14px;
+  width: 260px; 
+  transition: all 0.2s ease;
+}
+
+.search-pill:focus-within {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
+}
+
+.search-icon {
+  font-size: 1rem;
+  color: #6c6c6c;
+  margin-right: 8px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  font-size: 0.95rem;
+  background: transparent;
+}
+
+.search-input::placeholder {
+  color: #a8a8a8;
+}
+
+.apartments-toolbar {
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.new-home-btn {
+  white-space: nowrap;
+  padding: 0.7rem 1.1rem;
+  border-radius: 12px;
+}
+
+  /* Right border previously handled */
+
+  .property-img {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .tenant-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .filter-btns .btn {
+    border-radius: 20px;
+    padding: 6px 18px;
+    margin-right: 12px;
+    font-weight: 500;
+    background-color: #dee4e9;
+    border-color: #EDF2F7;
+    color: #444;
+  }
+
+  .filter-btns .btn:last-child {
+    margin-right: 0;
+}
+
+  .filter-btns .btn.active {
+    background-color: #929292;
+    border-color: #5a5a5a;
+    color: #1d2dff;
+    font-weight: 600;
+  }
+
+  .filter-btns .btn:hover {
+    background-color: #cfd4da;
+    border-color: #b8c0c8;
+    color: #2f2f2f;
+}
+
+/*type buttons*/
+.action-btn, .btn-status {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 12px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  color: #000; /* Texto en negro */
+}
+
+.action-btn i , .btn-status i{
+  font-size: 20px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Hover suave como en el UI */
+.action-btn:hover {
+  opacity: 0.6;
+}
+
+/*Status Button*/
+
+/**/
+
+.contratos-modal {
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 1.5rem;
+}
+
+.custom-input {
+  background-color: #f4f7fb;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.custom-input:focus {
+  background-color: #ffffff;
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+}
+
+.modal-content {
+  border: none;
+}
+
+.modal-header .btn-close {
+  background-color: transparent;
+  opacity: 0.8;
+}
+
+.modal-header .btn-close:hover {
+  opacity: 1;
+}
+
+/* En AparmentList.css */
+.btn-contract {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  color: #212529 !important;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.btn-contract:hover {
+  background-color: #e9ecef;
+  text-decoration: none;
+}
+
+.action-btn, .btn-status, .btn-contract {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.actions-stack-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 8px;
+  min-width: 150px;
+}
+
+.box-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border: none;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  color: #212529;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.box-action-btn:hover {
+  background: #eceff2;
+}
+
+.box-action-btn i {
+  font-size: 0.95rem;
+}
+
+.contract-links-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 190px;
+}
+
+.contract-link-text-btn,
+.contract-link-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  background: transparent;
+  color: #212529;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 2px 0;
+  text-align: left;
+  width: fit-content;
+  text-decoration: none;
+}
+
+.contract-link-text-btn {
+  cursor: pointer;
+}
+
+.contract-link-text-btn:hover,
+.contract-link-text:hover {
+  color: #212529;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 1.5px;
+}
+
+.d-flex.flex-wrap.gap-1 {
+  gap: 0.25rem !important;
+}
+
+/*Pagination*/
+.custom-pagination .page-item {
+  margin: 0 6px;
+}
+
+.custom-pagination .page-link {
+  border: none;
+  background: transparent;
+  color: #000;
+  font-size: 0.80rem; /*number size*/
+  padding: 6px 13px;/*button size*/
+  font-weight: 500;
+}
+
+.custom-pagination .page-item.active .page-link {
+  background: #1f1f1f;
+  color: #fff;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .apartments-toolbar {
+    align-items: stretch !important;
+  }
+
+  .search-pill {
+    width: 100%;
+  }
+
+  .new-home-btn {
+    width: 100%;
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .new-home-btn {
+    font-size: 0.95rem;
+    padding: 0.8rem 1rem;
+  }
+}

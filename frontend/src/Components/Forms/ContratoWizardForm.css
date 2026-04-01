@@ -1,0 +1,31 @@
+.contract-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+}
+
+.sidebar-item {
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: #495057;
+  font-size: 14px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+/* Hover effect */
+.sidebar-item:hover {
+  background: #f1f3f5;
+  color: #212529;
+}
+
+/* Active page */
+.sidebar-item.active {
+  background: #e9ecef;
+  font-weight: 600;
+  color: #212529;
+}
