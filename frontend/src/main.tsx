@@ -2,15 +2,15 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import "./index.css";
-import Dashboard from './views/Dashboard';
-import Viviendas from './views/Viviendas';
-import Incidencias from './views/Incidencias';
-import Contratos from './views/Contratos'
-import Home from './views/Home';
-import Reportes from './views/Reportes';
-import HomeIncidencias from './views/HomeIncidencias';
+import Dashboard from './views/Dashboard.tsx';
+import Viviendas from './views/Viviendas.tsx';
+import Incidencias from './views/Incidencias.tsx';
+import Contratos from './views/Contratos.tsx'
+import Home from './views/Home.tsx';
+import Reportes from './views/Reportes.tsx';
+import HomeIncidencias from './views/HomeIncidencias.tsx';
 import App from './App.tsx';
-import ContractDetails from './views/DetallesContrato';
+import ContractDetails from './views/DetallesContrato.tsx';
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
