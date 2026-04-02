@@ -1,0 +1,158 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.modal-content.config-modal {
+  background: #ffffff;
+  width: 900px;
+  max-width: 95%;
+  height: 520px;
+
+  border-radius: 14px;
+  padding: 24px 28px;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.config-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.config-body {
+  flex: 1;
+  display: flex;
+  gap: 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+
+.config-menu {
+  width: 220px;
+  border-right: 1px solid #e0e0e0;
+  padding-top: 12px;
+  background-color: #f8f9fa;
+}
+
+.config-menu button {
+  width: 100%;
+  padding: 14px 18px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.config-menu button:hover {
+  background-color: #e9ecef;
+}
+
+.config-menu button.active {
+  background-color: #e9ecef;
+  border-left: 4px solid #0d6efd;
+  font-weight: 600;
+}
+
+
+.config-content {
+  flex: 1;
+  padding: 24px 32px;
+  overflow-y: auto;
+  animation: fadeSlide 0.25s ease;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.config-section {
+  width: 100%;
+}
+
+.config-section h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* layout general */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* inputs */
+.form-grid input,
+.form-grid select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+/* inputs grandes */
+.form-grid .full {
+  grid-column: span 2;
+}
+
+/* ===== CONTENEDOR DE BOTONES ===== */
+.form-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* ===== BOTÓN GUARDAR ===== */
+.form-actions button {
+  min-width: 220px;        /* 🔥 tamaño horizontal */
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  background-color: #495057;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-actions button:hover {
+  background-color: #343a40;
+}
