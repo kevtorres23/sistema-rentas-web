@@ -1,40 +1,30 @@
-import React, { useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import '../view-styles/LoginForm.css';
-import { FaUser, FaEnvelope } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa6";
 import { FaLock } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { api } from '../config/api';
 
 const LoginForm = () => {
-    console.log("hi from the login");
     const [action, setAction] = useState('');
-    const [faqOpenIndex, setFaqOpenIndex] = useState(0);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    
     const navigate = useNavigate();
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };
 
-    const registerLink = () => {
-        setAction(' active');
-    };
-
-    const loginLink = () => {
-        setAction('');
-    };
-
-    const handleLogin = async (e) => {
+    const handleLogin = async (e: React.SubmitEvent) => {
         e.preventDefault();
-
-        const name = e.target[0].value;
-        const password = e.target[1].value;
 
         try {
             const response = await fetch(api("/login"), {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, password })
+                body: JSON.stringify({ username, password })
             });
 
             const data = await response.json();
@@ -42,7 +32,7 @@ const LoginForm = () => {
             if (!response.ok) {
                 alert("Invalid credentials");
                 return;
-            }
+            };
 
             // Save auth context in localStorage
             localStorage.setItem("token", data.token);
@@ -65,29 +55,30 @@ const LoginForm = () => {
     };
 
     return (
-        <div className='login-page'>
+        <div className='login-page w-full'>
             <div className={`wrapper${action}`}>
                 <div className='form-box login'>
                     <form onSubmit={handleLogin}>
                         <h1>Administración de Rentas</h1>
                         <div className="input-box">
-                            <input type="text" placeholder='Username' required /> <FaUser className='icon' />
+                            <input type="text" placeholder='Nombre de usuario' required={true} onChange={(e) => setUsername(e.target.value)} />
+                            <FaUser className='icon' />
                         </div>
 
                         <div className="input-box">
-                            <input type="password" placeholder='Password' required /> <FaLock className='icon' />
+                            <input type="password" placeholder='Contraseña' required={true} onChange={(e) => setPassword(e.target.value)} />
+                            <FaLock className='icon' />
                         </div>
+
                         <div className="remember-forgot">
-                            <label><input type='checkbox' />Recuerdame</label>
+                            <label>
+                                <input type='checkbox' />Recuérdame
+                            </label>
                             <a href='#'> </a>
                         </div>
 
-                        <button type="submit" className="btn btn-dark w-100">Login</button>
+                        <button type="submit" className="btn btn-dark w-100">Iniciar sesión</button>
 
-                        <div className="register-link">
-                            <p> <a href='#' onClick={registerLink}> </a>
-                            </p>
-                        </div>
                         <div className="input-fuaq">
                             <p>Al continuar, usted acepta los Términos de Sistema de Administración de Rentas y reconoce haber leído nuestra <span className="privacy-link" onClick={toggleModal}>Política de Privacidad</span>. Aviso de recopilación de información.
                             </p>

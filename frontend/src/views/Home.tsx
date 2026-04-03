@@ -3,10 +3,11 @@ import "../view-styles/Home.css";
 import { FileText, CreditCard, AlertCircle, FileDown, Loader } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { REACT_APP_API_URL } from "../config/api-url";
+import { SearchBar } from "@/components/SearchBar";
 
 const token = localStorage.getItem("token");
 
-const openDocument = async (contractId) => {
+const openDocument = async (contractId: string) => {
     const res = await fetch(`/api/documents/contract/${contractId}`);
     const data = await res.json();
 

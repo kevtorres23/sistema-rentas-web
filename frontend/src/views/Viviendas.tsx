@@ -3,12 +3,16 @@ import { type Housing, type HousingStatus } from "../types/HousingTypes";
 import { Link } from "react-router-dom";
 import { TbContract } from "react-icons/tb";
 import { LuHouse } from "react-icons/lu";
-import "../view-styles/AparmentList.css";
 import ViviendaForm from "../components/forms/Viviendaform";
 import EditApartmentModal from "../components/forms/EditarForm";
 import ContractWizardModal from "../components/forms/ContratoWizardform";
 import { REACT_APP_API_URL } from '../config/api-url';
 import { Modal } from 'react-bootstrap';
+import { SearchBar } from "@/components/SearchBar";
+import HousingTable from "@/components/housings/HousingTable";
+import SystemLayout from "@/components/SystemLayout";
+import NormalButton from "@/components/Button";
+import HousingStatusBtn from "@/components/housings/HousingStatus";
 
 const token = localStorage.getItem("token");
 
@@ -18,7 +22,7 @@ const Viviendas = () => {
     const [showContractModal, setShowContractModal] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-
+    const [activeTab, setActiveTab] = useState("all");
 
     const [filtroStatus, setFiltroStatus] = useState("todos");
     const [filtroBusqueda, setFiltroBusqueda] = useState("");
@@ -126,7 +130,7 @@ const Viviendas = () => {
     //  Filtering logic
 
     const propiedadesFiltradas = propiedades
-        .filter((p) => filtroStatus === "todos" || p.status === filtroStatus)
+        .filter((p) => activeTab === "todos" || p.status.toLowerCase() === activeTab)
         .filter((p) => {
             const texto = filtroBusqueda.toLowerCase();
             const addressString = `${p.street || ''} ${p.ext_num || ''} ${p.division || ''} ${p.postal_code || ''}`.toLowerCase();
@@ -136,11 +140,29 @@ const Viviendas = () => {
             );
         });
 
-
     const indexInicio = (paginaActual - 1) * itemsPorPagina;
     const indexFin = indexInicio + itemsPorPagina;
     const propiedadesPaginadas = propiedadesFiltradas.slice(indexInicio, indexFin);
     const totalPaginas = Math.ceil(propiedadesFiltradas.length / itemsPorPagina);
+
+    const sampleData: Housing[] = [
+        {
+            id: "1",
+            status: "ARCHIVED",
+            street: "Calle Zarco",
+            tenant_name: "Mario Antonio",
+            latest_due_date: new Date(),
+            int_num: "200",
+            ext_num: "300",
+            division: "División 1",
+            city: "Durango",
+            state: "Durango",
+            postal_code: "34162",
+            depositamount: 2500,
+            rc_id: "150"
+        }
+    ];
+
     // ------------------------------
     //  UI States: Loading and Error
     // ------------------------------
@@ -153,34 +175,38 @@ const Viviendas = () => {
     // ------------------------------
 
     return (
-        <div className="bg-light min-vh-100">
-            <div className="container py-4">
-
+        <SystemLayout sectionName="Viviendas" upperRightElem={<NormalButton onClick={() => setShowPropiertiesModal(true)} text="Nueva vivienda" />} children={
+            <div className="container flex flex-col gap-5">
                 {/* Search + Add */}
                 <div className="apartments-toolbar d-flex justify-content-between align-items-center mb-3">
-                    <div className="search-pill d-flex align-items-center">
-                        <i className="bi bi-search search-icon"></i>
-                        <input
-                            type="text"
-                            className="search-input"
-                            placeholder="Buscar..."
-                            value={filtroBusqueda}
-                            onChange={(e) => setFiltroBusqueda(e.target.value)}
-                        />
-                    </div>
+                    <div className="flex flex-row w-full items-center justify-between">
+                        <SearchBar value={filtroBusqueda} placeholder="Buscar una vivienda..." onChange={(e) => setFiltroBusqueda(e.target.value)} />
 
-                    <button
-                        className="btn btn-dark new-home-btn"
-                        onClick={() => setShowPropiertiesModal(true)}
-                    >
-                        + Nueva vivienda
-                    </button>
+                        <div className="flex p-2.5 rounded-md bg-slate-100 gap-2 border border-slate-200">
+                            <div onClick={() => setActiveTab("all")}>
+                                <HousingStatusBtn status="all" isActive={activeTab === "all"} />
+                            </div>
+
+                            <div onClick={() => setActiveTab("available")}>
+                                <HousingStatusBtn status="available" isActive={activeTab === "available"} />
+                            </div>
+
+                            <div onClick={() => setActiveTab("archived")}>
+                                <HousingStatusBtn status="archived" isActive={activeTab === "archived"} />
+                            </div>
+
+                            <div onClick={() => setActiveTab("occupied")}>
+                                <HousingStatusBtn status="occupied" isActive={activeTab === "occupied"} />
+                            </div>
+                        </div>
+                    </div>
 
                     <ViviendaForm
                         show={showPropiertiesModal}
                         onClose={() => setShowPropiertiesModal(false)}
                         onCreated={handleApartmentCreated}
                     />
+
                     {selectedApartment && (
                         <EditApartmentModal
                             apartment={selectedApartment}
@@ -201,47 +227,7 @@ const Viviendas = () => {
                     />
                 </div>
 
-                {/* STATUS INDICATORS */}
-                <div className="mb-3">
-                    <span className="status-dot status-disponible"></span>Disponible
-                    <span className="status-dot status-archivado ms-3"></span>Archivado
-                    <span className="status-dot status-ocupado ms-3"></span>Ocupado
-                </div>
-
-
-
-                {/* Filter buttons */}
-                <div className="filter-btns mb-4">
-                    <button
-                        className={'btn btn-outline-dark ${filtroStatus === "todos" ? " active" : ""}'}
-                        onClick={() => setFiltroStatus("todos")}>
-                        Total de Viviendas
-                    </button>
-
-                    <button
-                        className={'btn btn-outline-dark ${filtroStatus === "OCCUPIED" ? " active" : ""}'}
-                        onClick={() => setFiltroStatus("OCCUPIED")}>
-                        Viviendas Ocupadas
-                    </button>
-
-                    <button className={'btn btn-outline-dark ${filtroStatus === "AVAILABLE" ? " active" : ""}'}
-                        onClick={() => setFiltroStatus("AVAILABLE")}>
-                        Disponibles
-                    </button>
-
-                    <button className={'btn btn-outline-dark ${filtroStatus === "ARCHIVED" ? " active" : ""}'}
-                        onClick={() => setFiltroStatus("ARCHIVED")}>
-                        Archivadas
-                    </button>
-                </div>
-
-                {/* Table header */}
-                <div className="row table-header mb-2 d-none d-lg-flex fw-bold text-muted px-3">
-                    <div className="col-lg-3">Ubicación</div>
-                    <div className="col-lg-2 text-center">Arrendatario</div>
-                    <div className="col-lg-2">Fecha de Pago</div>
-                    <div className="col-lg-5 text-end">Acciones</div>
-                </div>
+                <HousingTable data={sampleData}/>
 
                 {/* Property list */}
                 {propiedadesPaginadas.map((prop) => (
@@ -355,7 +341,7 @@ const Viviendas = () => {
                     </ul>
                 </nav>
             </div>
-        </div>
+        } />
     );
 };
 
