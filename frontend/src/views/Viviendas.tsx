@@ -13,6 +13,7 @@ import HousingTable from "@/components/housings/HousingTable";
 import SystemLayout from "@/components/SystemLayout";
 import NormalButton from "@/components/Button";
 import HousingStatusBtn from "@/components/housings/HousingStatus";
+import { Plus } from "lucide-react";
 
 const token = localStorage.getItem("token");
 
@@ -160,6 +161,21 @@ const Viviendas = () => {
             postal_code: "34162",
             depositamount: 2500,
             rc_id: "150"
+        },
+        {
+            id: "2",
+            status: "AVAILABLE",
+            street: "Calle Zarco",
+            tenant_name: "Mario Antonio",
+            latest_due_date: new Date(),
+            int_num: "200",
+            ext_num: "300",
+            division: "División 1",
+            city: "Durango",
+            state: "Durango",
+            postal_code: "34162",
+            depositamount: 2500,
+            rc_id: "150"
         }
     ];
 
@@ -175,173 +191,179 @@ const Viviendas = () => {
     // ------------------------------
 
     return (
-        <SystemLayout sectionName="Viviendas" upperRightElem={<NormalButton onClick={() => setShowPropiertiesModal(true)} text="Nueva vivienda" />} children={
-            <div className="container flex flex-col gap-5">
-                {/* Search + Add */}
-                <div className="apartments-toolbar d-flex justify-content-between align-items-center mb-3">
-                    <div className="flex flex-row w-full items-center justify-between">
-                        <SearchBar value={filtroBusqueda} placeholder="Buscar una vivienda..." onChange={(e) => setFiltroBusqueda(e.target.value)} />
+        <SystemLayout tabName="viviendas" sectionName="Viviendas"
+            upperRightElem={<NormalButton
+                onClick={() => setShowPropiertiesModal(true)}
+                text="Nueva vivienda"
+                icon={<Plus size={18} className="text-white" strokeWidth={2} />}
+            />}
+            children={
+                <div className="container flex flex-col gap-5 h-full">
+                    {/* Search + Add */}
+                    <div className="apartments-toolbar d-flex justify-content-between align-items-center mb-3">
+                        <div className="flex flex-row w-full items-center justify-between">
+                            <SearchBar value={filtroBusqueda} placeholder="Buscar una vivienda..." onChange={(e) => setFiltroBusqueda(e.target.value)} />
 
-                        <div className="flex p-2.5 rounded-md bg-slate-100 gap-2 border border-slate-200">
-                            <div onClick={() => setActiveTab("all")}>
-                                <HousingStatusBtn status="all" isActive={activeTab === "all"} />
-                            </div>
+                            <div className="flex p-2.5 rounded-md bg-white gap-2 border border-slate-200">
+                                <div onClick={() => setActiveTab("all")}>
+                                    <HousingStatusBtn status="all" isActive={activeTab === "all"} />
+                                </div>
 
-                            <div onClick={() => setActiveTab("available")}>
-                                <HousingStatusBtn status="available" isActive={activeTab === "available"} />
-                            </div>
+                                <div onClick={() => setActiveTab("available")}>
+                                    <HousingStatusBtn status="available" isActive={activeTab === "available"} />
+                                </div>
 
-                            <div onClick={() => setActiveTab("archived")}>
-                                <HousingStatusBtn status="archived" isActive={activeTab === "archived"} />
-                            </div>
+                                <div onClick={() => setActiveTab("archived")}>
+                                    <HousingStatusBtn status="archived" isActive={activeTab === "archived"} />
+                                </div>
 
-                            <div onClick={() => setActiveTab("occupied")}>
-                                <HousingStatusBtn status="occupied" isActive={activeTab === "occupied"} />
+                                <div onClick={() => setActiveTab("occupied")}>
+                                    <HousingStatusBtn status="occupied" isActive={activeTab === "occupied"} />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <ViviendaForm
-                        show={showPropiertiesModal}
-                        onClose={() => setShowPropiertiesModal(false)}
-                        onCreated={handleApartmentCreated}
-                    />
-
-                    {selectedApartment && (
-                        <EditApartmentModal
-                            apartment={selectedApartment}
-                            onClose={() => setSelectedApartment(undefined)}
-                            onUpdated={(updated: Housing) => {
-                                setPropiedades(prev =>
-                                    prev.map(a => a.id === updated.id ? updated : a)
-                                );
-                                setSelectedApartment(undefined);
-                            }}
+                        <ViviendaForm
+                            show={showPropiertiesModal}
+                            onClose={() => setShowPropiertiesModal(false)}
+                            onCreated={handleApartmentCreated}
                         />
-                    )}
-                    <ContractWizardModal
-                        show={showContractModal}
-                        onClose={() => setShowContractModal(false)}
-                        selectedApartmentId={contractApartmentId}
 
-                    />
-                </div>
-
-                <HousingTable data={sampleData}/>
-
-                {/* Property list */}
-                {propiedadesPaginadas.map((prop) => (
-                    <div className="row property-card responsive-card mx-0 mb-3 mb-lg-0" key={prop.id}>
-                        <div className="col-12 col-lg-3 d-flex align-items-center border-end-lg pb-3 pb-lg-0">
-                            <span className={getStatusDot(prop.status)}></span>
-                            <img
-                                src="https://th.bing.com/th/id/OIP.6XIv3DVREt05mi0sSNtUDgHaE8?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"
-                                className="property-img me-2"
-                                alt="Departamento"
+                        {selectedApartment && (
+                            <EditApartmentModal
+                                apartment={selectedApartment}
+                                onClose={() => setSelectedApartment(undefined)}
+                                onUpdated={(updated: Housing) => {
+                                    setPropiedades(prev =>
+                                        prev.map(a => a.id === updated.id ? updated : a)
+                                    );
+                                    setSelectedApartment(undefined);
+                                }}
                             />
-                            <div>
-                                <p className="mb-1 fw-semibold">{`${prop.street || ''} ${prop.int_num || ''}, ${prop.division || ''}`.trim()}</p>
-                                <small>{prop.depositamount ? prop.depositamount.toLocaleString('en-US') : ''}$</small>
-                            </div>
-                        </div>
+                        )}
+                        <ContractWizardModal
+                            show={showContractModal}
+                            onClose={() => setShowContractModal(false)}
+                            selectedApartmentId={contractApartmentId}
 
-                        <div className="col-12 col-lg-2 d-flex align-items-center justify-content-lg-center flex-row flex-lg-column gap-2 gap-lg-0 border-end-lg py-2 py-lg-0">
-                            <span className="d-lg-none fw-bold mobile-label">Arrendatario:</span>
-                            <i className="bi bi-person-circle fs-3 text-secondary d-none d-lg-block"></i>
-                            <span>{prop.tenant_name || 'Sin asignar'}</span>
-                        </div>
-
-                        <div className="col-12 col-lg-2 d-flex align-items-center border-end-lg py-2 py-lg-0 gap-2">
-                            <span className="d-lg-none fw-bold mobile-label">Fecha de Pago:</span>
-                            <span>{prop.latest_due_date ? formatDate(prop.latest_due_date) : '-'}</span>
-                        </div>
-
-                        {/* Butons */}
-                        <div className="col-12 col-lg-5 d-flex flex-column flex-sm-row justify-content-lg-end align-items-stretch align-items-sm-center gap-3 pt-3 pt-lg-0">
-                            <div className="actions-stack-box w-100 flex-sm-grow-1 flex-lg-grow-0">
-                                <button
-                                    className="box-action-btn"
-                                    onClick={() => handleSelect(prop)}
-                                >
-                                    <i className="bi bi-pencil-square"></i>
-                                    Editar
-                                </button>
-
-                                {prop.status === "ARCHIVED" ? (
-                                    <button className="box-action-btn" onClick={() => archivarVivienda(prop.id)}>
-                                        <i className="bi bi-eye"></i>
-                                        Archivado
-                                    </button>
-                                ) : (
-                                    <button className="box-action-btn" onClick={() => archivarVivienda(prop.id)}>
-                                        <i className="bi bi-eye-slash"></i>
-                                        Desarchivar
-                                    </button>
-                                )}
-
-                                {prop.status === "OCCUPIED" ? (
-                                    <button className="box-action-btn" onClick={() => cambiarEstado(prop.id)}>
-                                        <i className="bi bi-x-circle"></i>
-                                        Ocupado
-                                    </button>
-                                ) : (
-                                    <button className="box-action-btn" onClick={() => cambiarEstado(prop.id)}>
-                                        <i className="bi bi-check-circle"></i>
-                                        Disponible
-                                    </button>
-                                )}
-                            </div>
-
-                            <div className="contract-links-stack w-100 flex-sm-grow-1 flex-lg-grow-0">
-                                {prop.tenant_name ?
-                                    <Link to={"/contratos/" + prop.rc_id} className="contract-link-text-btn ">
-                                        <TbContract size={16} />
-                                        Datos del contrato
-                                    </Link>
-                                    :
-                                    <button
-                                        type="button"
-                                        className="contract-link-text-btn"
-                                        onClick={() => { setContractApartmentId(prop.id); setShowContractModal(true); }}
-                                    >
-                                        <TbContract size={16} />
-                                        Agregar Contrato
-                                    </button>}
-
-
-                                <Link
-                                    to={`/viviendas/${prop.id}/detalles`}
-                                    state={{ propiedad: prop }}
-                                    className="contract-link-text"
-                                >
-                                    <LuHouse size={16} />
-                                    Datos de la vivienda
-                                </Link>
-                            </div>
-                        </div>
+                        />
                     </div>
-                ))}
 
-                {/* Pagination */}
-                <nav className="mt-4">
-                    <ul className="pagination justify-content-center custom-pagination">
-                        {Array.from(
-                            { length: Math.ceil(propiedadesFiltradas.length / itemsPorPagina) },
-                            (_, idx) => (
-                                <li
-                                    key={idx + 1}
-                                    className={`page-item ${paginaActual === idx + 1 ? "active" : ""}`}>
+                    <HousingTable data={sampleData} />
+
+                    {/* Property list */}
+                    {propiedadesPaginadas.map((prop) => (
+                        <div className="row property-card responsive-card mx-0 mb-3 mb-lg-0" key={prop.id}>
+                            <div className="col-12 col-lg-3 d-flex align-items-center border-end-lg pb-3 pb-lg-0">
+                                <span className={getStatusDot(prop.status)}></span>
+                                <img
+                                    src="https://th.bing.com/th/id/OIP.6XIv3DVREt05mi0sSNtUDgHaE8?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"
+                                    className="property-img me-2"
+                                    alt="Departamento"
+                                />
+                                <div>
+                                    <p className="mb-1 fw-semibold">{`${prop.street || ''} ${prop.int_num || ''}, ${prop.division || ''}`.trim()}</p>
+                                    <small>{prop.depositamount ? prop.depositamount.toLocaleString('en-US') : ''}$</small>
+                                </div>
+                            </div>
+
+                            <div className="col-12 col-lg-2 d-flex align-items-center justify-content-lg-center flex-row flex-lg-column gap-2 gap-lg-0 border-end-lg py-2 py-lg-0">
+                                <span className="d-lg-none fw-bold mobile-label">Arrendatario:</span>
+                                <i className="bi bi-person-circle fs-3 text-secondary d-none d-lg-block"></i>
+                                <span>{prop.tenant_name || 'Sin asignar'}</span>
+                            </div>
+
+                            <div className="col-12 col-lg-2 d-flex align-items-center border-end-lg py-2 py-lg-0 gap-2">
+                                <span className="d-lg-none fw-bold mobile-label">Fecha de Pago:</span>
+                                <span>{prop.latest_due_date ? formatDate(prop.latest_due_date) : '-'}</span>
+                            </div>
+
+                            {/* Butons */}
+                            <div className="col-12 col-lg-5 d-flex flex-column flex-sm-row justify-content-lg-end align-items-stretch align-items-sm-center gap-3 pt-3 pt-lg-0">
+                                <div className="actions-stack-box w-100 flex-sm-grow-1 flex-lg-grow-0">
                                     <button
-                                        className="page-link"
-                                        onClick={() => setPaginaActual(idx + 1)}>
-                                        {idx + 1}
+                                        className="box-action-btn"
+                                        onClick={() => handleSelect(prop)}
+                                    >
+                                        <i className="bi bi-pencil-square"></i>
+                                        Editar
                                     </button>
-                                </li>
-                            ))}
-                    </ul>
-                </nav>
-            </div>
-        } />
+
+                                    {prop.status === "ARCHIVED" ? (
+                                        <button className="box-action-btn" onClick={() => archivarVivienda(prop.id)}>
+                                            <i className="bi bi-eye"></i>
+                                            Archivado
+                                        </button>
+                                    ) : (
+                                        <button className="box-action-btn" onClick={() => archivarVivienda(prop.id)}>
+                                            <i className="bi bi-eye-slash"></i>
+                                            Desarchivar
+                                        </button>
+                                    )}
+
+                                    {prop.status === "OCCUPIED" ? (
+                                        <button className="box-action-btn" onClick={() => cambiarEstado(prop.id)}>
+                                            <i className="bi bi-x-circle"></i>
+                                            Ocupado
+                                        </button>
+                                    ) : (
+                                        <button className="box-action-btn" onClick={() => cambiarEstado(prop.id)}>
+                                            <i className="bi bi-check-circle"></i>
+                                            Disponible
+                                        </button>
+                                    )}
+                                </div>
+
+                                <div className="contract-links-stack w-100 flex-sm-grow-1 flex-lg-grow-0">
+                                    {prop.tenant_name ?
+                                        <Link to={"/contratos/" + prop.rc_id} className="contract-link-text-btn ">
+                                            <TbContract size={16} />
+                                            Datos del contrato
+                                        </Link>
+                                        :
+                                        <button
+                                            type="button"
+                                            className="contract-link-text-btn"
+                                            onClick={() => { setContractApartmentId(prop.id); setShowContractModal(true); }}
+                                        >
+                                            <TbContract size={16} />
+                                            Agregar Contrato
+                                        </button>}
+
+
+                                    <Link
+                                        to={`/viviendas/${prop.id}/detalles`}
+                                        state={{ propiedad: prop }}
+                                        className="contract-link-text"
+                                    >
+                                        <LuHouse size={16} />
+                                        Datos de la vivienda
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+
+                    {/* Pagination */}
+                    <nav className="mt-4">
+                        <ul className="pagination justify-content-center custom-pagination">
+                            {Array.from(
+                                { length: Math.ceil(propiedadesFiltradas.length / itemsPorPagina) },
+                                (_, idx) => (
+                                    <li
+                                        key={idx + 1}
+                                        className={`page-item ${paginaActual === idx + 1 ? "active" : ""}`}>
+                                        <button
+                                            className="page-link"
+                                            onClick={() => setPaginaActual(idx + 1)}>
+                                            {idx + 1}
+                                        </button>
+                                    </li>
+                                ))}
+                        </ul>
+                    </nav>
+                </div>
+            } />
     );
 };
 

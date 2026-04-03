@@ -32,7 +32,7 @@ function HousingStatusBtn(props: ButtonProps) {
     };
 
     return (
-        <div className={`flex flex-row gap-1 rounded-md cursor-pointer items-center justify-center px-3 py-1.5 ${props.isActive ? statusStyleClasses[props.status as keyof StyleObject].backgroundColor : "bg-white hover:bg-slate-50 border border-slate-200"}`}>
+        <div className={`flex flex-row gap-1 rounded-md cursor-pointer items-center justify-center px-3 py-1.5 ${props.isActive ? statusStyleClasses[props.status as keyof StyleObject].backgroundColor : "bg-white hover:bg-slate-100 border border-slate-200"}`}>
             {!props.isActive && props.status != "all" && (
                 <div className={`w-2 h-2 rounded-[50%] ${statusStyleClasses[props.status as keyof StyleObject].backgroundColor}`}></div>
             )}

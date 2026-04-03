@@ -11,21 +11,21 @@ type StyleObject = Record<"available" | "archived" | "occupied", StyleProperties
 function StatusTag({ status }: { status: "available" | "archived" | "occupied" }) {
     const tagStyleClasses: StyleObject = {
         available: {
-            backgroundColor: "bg-[rgb(39,200,64,0.12)]",
+            backgroundColor: "bg-[rgb(39,200,64,0.08)]",
             dotBackgroundColor: "bg-green-500",
             borderColor: "border-green-500",
             color: "text-green-500",
             name: "Disponible"
         },
         archived: {
-            backgroundColor: "bg-[rgb(59,130,246,0.12)]",
+            backgroundColor: "bg-[rgb(59,130,246,0.1)]",
             dotBackgroundColor: "bg-blue-500",
             borderColor: "border-blue-500",
             color: "text-blue-500",
             name: "Archivada"
         },
         occupied: {
-            backgroundColor: "bg-[rgb(244,63,94,0.12)]",
+            backgroundColor: "bg-[rgb(244,63,94,0.08)]",
             dotBackgroundColor: "bg-red-500",
             borderColor: "border-red-500",
             color: "text-red-500",

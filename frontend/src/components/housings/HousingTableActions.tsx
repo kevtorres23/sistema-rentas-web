@@ -3,7 +3,10 @@ import {
     SquarePen,
     Archive,
     ScrollText,
-    House
+    House,
+    ArchiveRestore,
+    Loader,
+    CircleCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +19,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-function HousingTableActions({ isTenant }: { isTenant: boolean }) {
+function HousingTableActions({ isTenant, status }: { isTenant: boolean, status: string }) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -34,12 +37,33 @@ function HousingTableActions({ isTenant }: { isTenant: boolean }) {
                         Modificar datos
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem>
-                        <Archive />
-                        Archivar
-                    </DropdownMenuItem>
+                    {status != "archived" && (
+                        <DropdownMenuItem>
+                            <Archive />
+                            Archivar
+                        </DropdownMenuItem>
+                    )}
 
-                    <DropdownMenuItem>Cambiar a ocupada</DropdownMenuItem>
+                    {status === "archived" && (
+                        <DropdownMenuItem>
+                            <ArchiveRestore />
+                            Desarchivar
+                        </DropdownMenuItem>
+                    )}
+
+                    {status === "occupied" && (
+                        <DropdownMenuItem>
+                            <CircleCheck />
+                            Cambiar a disponible
+                        </DropdownMenuItem>
+                    )}
+
+                    {status === "available" && (
+                        <DropdownMenuItem>
+                            <Loader />
+                            Cambiar a ocupada
+                        </DropdownMenuItem>
+                    )}
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />

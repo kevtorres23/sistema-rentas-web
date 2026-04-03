@@ -23,7 +23,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import StatusTag from "../StatusTag";
+import StatusTag from "./StatusTag";
 
 
 type TableProps = {
@@ -58,7 +58,7 @@ function HousingTable(props: TableProps) {
                         <TableCell>{housing.tenant_name}</TableCell>
                         <TableCell>{format(housing.latest_due_date, "PPP", { locale: es })}</TableCell>
                         <TableCell>
-                            <HousingTableActions isTenant={housing.latest_due_date != undefined}/>
+                            <HousingTableActions status={housing.status.toLowerCase()} isTenant={housing.latest_due_date != undefined}/>
                         </TableCell>
                     </TableRow>
                 ))}
