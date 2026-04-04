@@ -10,8 +10,7 @@ import ContractWizardModal from "../Forms/ContratoWizardform";
 import { REACT_APP_API_URL } from '../../config';
 
 import { Modal } from 'bootstrap';
-import { PDFViewer } from "@react-pdf/renderer";
-
+import { PDFViewer, Page, Document, Text, View } from '@react-pdf/renderer';
 
 
 const token = localStorage.getItem("token");
@@ -212,14 +211,16 @@ const Viviendas = () => {
           />
         </div>
 
+        <PDFViewer width={500} height={800}>
+          <DocumentoPagare />
+        </PDFViewer>
+
         {/* STATUS INDICATORS */}
         <div className="mb-3">
           <span className="status-dot status-disponible"></span>Disponible
           <span className="status-dot status-archivado ms-3"></span>Archivado
           <span className="status-dot status-ocupado ms-3"></span>Ocupado
         </div>
-
-
 
         {/* Filter buttons */}
         <div className="filter-btns mb-4">
