@@ -1,0 +1,207 @@
+/* Variables de color basadas en el diseño de Figma */
+:root {
+  --primary-purple: #6C5DD3;
+  --secondary-purple: #A098E5;
+  --light-pink: #FFB7F5;
+  --dark-text: #1B1D21;
+  --gray-text: #808191;
+  --bg-main: #F8F9FB;
+  --bg-card: #FFFFFF;
+  --nav-active-bg: #E4E4E4;
+}
+
+body {
+  background-color: var(--bg-main);
+  font-family: 'Inter', sans-serif; /* Asegúrate de tener esta fuente o una similar */
+}
+
+/* --- HEADER --- */
+.dashboard-header {
+  background-color: var(--bg-card);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #E4E4E4;
+}
+
+.nav-link-custom {
+  color: var(--gray-text);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.nav-link-custom.active {
+  background-color: var(--nav-active-bg);
+  color: var(--dark-text);
+}
+
+.icon-btn {
+  color: var(--gray-text);
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.icon-btn:hover {
+  background-color: var(--nav-active-bg);
+  color: var(--dark-text);
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-text);
+}
+
+.page-subtitle {
+  color: var(--gray-text);
+  font-size: 1rem;
+}
+
+/* --- TARJETAS (KPIs y Gráficas) --- */
+.custom-card {
+  background-color: var(--bg-card);
+  border-radius: 24px;
+  padding: 1.5rem;
+  height: 100%;
+  border: none;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.kpi-title {
+  color: var(--gray-text);
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.kpi-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin-top: 0.5rem;
+}
+
+.chart-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --- GRÁFICA DE DONA --- */
+.donut-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.donut-center-text {
+  position: absolute;
+  top: 40%; /* Ajustado visualmente */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.donut-total {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  line-height: 1;
+}
+
+.custom-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--gray-text);
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* --- TABLA (Adaptada al nuevo estilo) --- */
+.table-card {
+  border-radius: 24px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.custom-table thead th {
+  background-color: #F8F9FB;
+  color: var(--gray-text);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  border-bottom: none;
+}
+
+.custom-table tbody td {
+  vertical-align: middle;
+  border-top: 1px solid #F0F0F0;
+  font-size: 0.9rem;
+}
+
+.dashboard-global-month,
+.dashboard-month-filter {
+  min-width: 0;
+  width: fit-content;
+  max-width: 156px;
+  margin-right: auto;
+}
+
+.dashboard-global-month .form-select,
+.dashboard-month-filter .form-select {
+  min-width: 118px;
+  padding-right: 1.75rem;
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.dashboard-charge-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 999px;
+  background: #e9edf7;
+}
+
+.dashboard-charge-toggle button {
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  border-radius: 999px;
+  min-width: 26px;
+  height: 24px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.dashboard-charge-toggle button.is-active {
+  background: #ffffff;
+  color: #1b2559;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+}
+
+@media (max-width: 768px) {
+  .dashboard-global-month,
+  .dashboard-month-filter {
+    width: 100%;
+  }
+}
