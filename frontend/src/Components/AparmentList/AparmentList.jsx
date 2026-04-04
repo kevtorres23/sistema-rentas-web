@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { TbContract } from "react-icons/tb";
 import { LuHouse } from "react-icons/lu";
 import "./AparmentList.css";
+import { DocumentoPagare } from "../Machotes/Pagares/Pagare";
 import ViviendaForm from "../Forms/Viviendaform";
 import EditApartmentModal from "../Forms/Editarform";
 import ContractWizardModal from "../Forms/ContratoWizardform";
 import { REACT_APP_API_URL } from '../../config';
 
 import { Modal } from 'bootstrap';
+import { PDFViewer } from "@react-pdf/renderer";
 
 
 
