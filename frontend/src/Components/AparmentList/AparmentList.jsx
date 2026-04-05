@@ -4,11 +4,11 @@ import { TbContract } from "react-icons/tb";
 import { LuHouse } from "react-icons/lu";
 import "./AparmentList.css";
 import { DocumentoPagare } from "../Machotes/Pagares/Pagare";
+import { DocumentoContrato } from "../Machotes/Contrato/Contrato";
 import ViviendaForm from "../Forms/Viviendaform";
 import EditApartmentModal from "../Forms/Editarform";
 import ContractWizardModal from "../Forms/ContratoWizardform";
 import { REACT_APP_API_URL } from '../../config';
-
 import { Modal } from 'bootstrap';
 import { PDFViewer, Page, Document, Text, View } from '@react-pdf/renderer';
 
@@ -212,7 +212,7 @@ const Viviendas = () => {
         </div>
 
         <PDFViewer width={500} height={800}>
-          <DocumentoPagare />
+          <DocumentoContrato />
         </PDFViewer>
 
         {/* STATUS INDICATORS */}

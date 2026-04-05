@@ -1,7 +1,7 @@
 import { Page, Document, Text, View, Image } from '@react-pdf/renderer';
 import { numeroEscrito } from '../../../Utils/numero-escrito';
 import { divisorPaginasPagares } from '../../../Utils/divisor-paginas-pdf';
-import estilos from './PagareStyles';
+import estilos from './EstilosPagare';
 import { format, lastDayOfMonth } from "date-fns";
 import { es } from "date-fns/locale";
 
@@ -16,6 +16,7 @@ import { es } from "date-fns/locale";
 export function DocumentoPagare(informacion) {
     let contadorPagares = 0;
 
+    // Información de prueba para la generación de los pagarés.
     let infoPagare = {
         fecha: new Date(2026, 2, 31),
         valor: 4000,
