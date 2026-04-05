@@ -105,7 +105,6 @@ function numeroEscrito(numero) {
     };
 
     const numeroEscrito = palabrasNumero.join(" ");
-    console.log(palabrasNumero);
     return numeroEscrito;
 };
 

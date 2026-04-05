@@ -2,35 +2,38 @@ import { StyleSheet } from "@react-pdf/renderer";
 
 const estilos = StyleSheet.create({
     textoChico: {
-        fontSize: 12,
+        fontSize: 8,
     },
     textoChicoGrueso: {
-        fontSize: 12,
+        fontSize: 8,
         fontWeight: 600,
     },
     textoChicoDerecha: {
-        fontSize: 12,
+        fontSize: 8,
         textAlign: "right",
     },
     textoNormal: {
-        fontSize: 14,
+        fontSize: 10,
         fontWeight: 400,
     },
     textoNormalGrueso: {
-        fontSize: 14,
+        fontSize: 10,
         fontWeight: 700,
     },
     hoja: {
-        padding: 40,
+        padding: 30,
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
     },
     contenedorPagare: {
         display: "flex",
         flexDirection: "column",
-        gap: 20,
+        gap: 8,
         borderWidth: 1,
         borderStyle: "solid",
         borderColor: "black",
-        padding: 10
+        padding: 8
     },
     encabezado: {
         display: "flex",
@@ -64,9 +67,47 @@ const estilos = StyleSheet.create({
         justifySelf: "flex-end",
     },
     cuerpo: {
-        fontSize: 12,
+        fontSize: 8,
         lineHeight: "150%",
-    }
+    },
+    parteInferior: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+    },
+    datosPersonas: {
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
+    },
+    contenedorDatos: {
+        display: "flex",
+        flexDirection: "column",
+        gap: 5,
+    },
+    firmas: {
+        display: "flex",
+        width: "60%",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 50,
+    },
+    espacioFirma: {
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    contenedorFirma: {
+        padding: 5,
+        width: "100%",
+        borderBottomWidth: 1,
+        borderBottomStyle: "solid",
+        borderBottomColor: "black,"
+    },
 });
 
 export default estilos;
