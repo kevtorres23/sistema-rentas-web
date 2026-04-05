@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Settings, Bell, X } from "lucide-react";
 import "./Navbar.css";
 import casaLogo from "../Assets/casa.png";
+import { guardarNuevaFirma } from "../../Lib/funciones-firma";
+import LienzoFirma from "../LienzoFirma";
 
 const Navbar = () => {
   const location = useLocation();
@@ -16,6 +18,7 @@ const Navbar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const userMenuRef = useRef(null);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [lienzoFirma, setLienzoFirma] = useState(false);
 
   const [paymentKeys, setPaymentKeys] = useState({
     stripe: "",
@@ -73,6 +76,13 @@ const Navbar = () => {
     setShowUserMenu(false);
     navigate("/");
   };
+
+  function actualizarFirma() {
+    setLienzoFirma(false);
+
+    // Lógica aquí para guardar la firma en la base de datos u otro medio
+    // como un repositorio privado, en caso de que queramos llamar las firmas por su URL.
+  }
 
   return (
     <>
@@ -232,6 +242,17 @@ const Navbar = () => {
                       Cobros y Mora
                     </button>
                   </li>
+                  <li>
+                    <button
+                      className={`w-100 text-start px-4 py-3 border-0 ${activeTab === "firma"
+                        ? "bg-white fw-bold border-start border-primary border-4"
+                        : "bg-transparent text-muted"
+                        }`}
+                      onClick={() => setActiveTab("firma")}
+                    >
+                      Firma de Documentos
+                    </button>
+                  </li>
                 </ul>
               </div>
 
@@ -342,6 +363,65 @@ const Navbar = () => {
                     </div>
                     <p className="text-muted small mt-2">
                       * Este valor se aplicara automaticamente a los inquilinos con estatus "Vencido" en el Dashboard.
+                    </p>
+                  </div>
+                )}
+
+                {activeTab === "firma" && (
+                  <div>
+                    <h5 className="fw-bold mb-4" style={{ color: "#1B2559" }}>
+                      Firma de Documentos
+                    </h5>
+
+                    {!lienzoFirma && (
+                      <>
+                        <div className="col mb-6">
+                          <div className="col-md-6 mb-3">
+                            <label className="form-label">Firma actual</label>
+                            <div>
+                              <img>
+                                {/* Imagen de la firma del usuario aquí: BLOB o link a la imagen */}
+                              </img>
+                            </div>
+                          </div>
+                        </div>
+
+                        <button
+                          className="btn btn-primary px-4"
+                          onClick={() => setLienzoFirma(true)}
+                          style={{ backgroundColor: "#4318FF", border: "none" }}
+                        >
+                          Editar firma
+                        </button>
+                      </>
+                    )}
+
+                    {lienzoFirma && (
+                      <>
+                        <LienzoFirma />
+
+                        <div style={{marginTop: 20}} className="botones">
+                          <button
+                            className="btn btn-primary px-4"
+                            onClick={actualizarFirma}
+                            style={{ backgroundColor: "#4318FF", border: "none", marginRight: 5 }}
+                          >
+                            Actualizar firma
+                          </button>
+
+                          <button
+                            className="btn btn-secondary px-4"
+                            onClick={() => setLienzoFirma(false)}
+                            style={{ backgroundColor: "#dadada", border: "none", color: "black" }}
+                          >
+                            Cancelar edición
+                          </button>
+                        </div>
+                      </>
+                    )}
+
+                    <p className="text-muted small mt-2">
+                      Esta firma se colocará automáticamente en los contratos y pagarés relacionados con tus convenios.
                     </p>
                   </div>
                 )}

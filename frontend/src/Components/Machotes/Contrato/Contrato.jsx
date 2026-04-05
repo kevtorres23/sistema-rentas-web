@@ -1,5 +1,5 @@
 import { Page, Document, Text, View, Image } from '@react-pdf/renderer';
-import { SeccionContrato } from './Declaraciones';
+import { SeccionDeclaraciones } from './Declaraciones';
 import estilos from './EstilosContrato';
 import { format, lastDayOfMonth } from "date-fns";
 import { es } from "date-fns/locale";
@@ -42,8 +42,6 @@ export function DocumentoContrato(informacion) {
                         </Text>
                     </Text>
                 </View>
-
-                <SeccionContrato />
             </Page>
         </Document>
     );
